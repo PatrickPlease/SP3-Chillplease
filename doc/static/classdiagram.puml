@@ -5,165 +5,102 @@
 
 class Main
 class StartMenu
+class User
+class DataValidator
+class CreateAccount
+class WatchList
+class MainMenu
+abstract Media
+class TvShows
+class Movies
+class MediaWindow
+class Category
+
+
 package "util"{
-    class TextUI
-    class FileIO
+       class TextUI
+       class DbIO
 }
 
-package "model"{
-    class Player
-    class Field
-      class Dice
-      class Account
-      class CardDeck
-       class Card
-      class Board
-          class Visit
-            class Tax
-            class Parking
-            class Start
-          class Chance
-          class Property
-          class Prison
-          class Plot
-          class Building
-          class Business
-          class ShippingLine
-          class Brewery
-}
-
-Main *-- Game
-Game *-- TextUI
-Game *-- FileIO
-Game *-- Player
-Player *-- Account
-Player *-- Card
-Game *--Board
-Game *-- Dice
-Board *-- Field
-Board *-- CardDeck
-CardDeck *-- Card
-Field <|-- Visit
-Field <|-- Tax
-Field <|-- Parking
-Field <|-- Start
-Field <|-- Chance
-Field <|-- Property
-Field <|-- Prison
-Property <|-- Plot
-Plot <|-- Building
-Property <|-- Business
-Business <|-- ShippingLine
-Business <|-- Brewery
-
+Main *-- StartMenu
+StartMenu *-- User
+User *-- DataValidator
+User *-- CreateAccount
+StartMenu *-- MainMenu
+MainMenu *-- WatchList
+MainMenu *-- Media
+Media *-- Movies
+Media *-- TvShows
+MainMenu *-- MediaWindow
+StartMenu *-- util
+MainMenu *-- Category
 
 Main : + static void main(string [] args)
 
-Player  : - String name
-Player  : - int balance
+StartMenu : + CreateAccount
 '---_new-----
-Player : - Account account
-Player : - ArrayList<Card> cards
-Player : - ArrayList<Deed> deeds
+StartMenu : - login()
 '-----------
-Player  : + Player(String name, int Balance)
-Player : - int position
-Player  : + String toString()
-Player  : + int getBalance()
-Player : + String getName()
-Player : + int getPosition()
-'----new-----
-Player  : +int updatePosition(int value)
-Player : -boolean startPassed()
-Player : + void buyProperty(int amount)
-Player : + void pay(int amount, Player recipient)
-Player : + void pay(int amount)
-Player : + void collect(int amount)
-Player : + void receive(int amount)
+
+User : - Private String Username
+User : - Private String Password
+User : - static ArrayList <User> users
+'---_new-----
+User : + User(String Username, String Password)
 
 '-----------
-Account :  - int balance
-Account  : + void withdraw(int amount)
-Account  : + void deposit(int amount)
-Account  : + int getBalance()
+DataValidator : - String Username
+DataValidator : - String Password
+'---_new-----
+DataValidator : + Boolean isUsernameValid()
+DataValidator : + Boolean isPassWordValid()
+'-----------
 
-Game : - static ArrayList<Player> players
-Game : - int maxPlayers
-Game : - TextUI ui
-Game : - FileIO io
-Game : - Player currentplayer
-Game : - static CardDeck cardDeck
-Game : - Board board
-Game : - Dice dice
-Game : + Game(int maxPlayers, int minPlayers)
-Game : - void registerPlayer(String name, int amount)
-Game : + void setup()
-Game : - void runPlayerSetupDialog();
-Game : - void runGameLoop()
-Game : - void throwAndMove()
-Game : - void endGame()
-Game : - void displayPlayers()
-Game : - Player getPlayer(int i)
+CreateAccount : - Boolean createUser(String name, String Password)
+CreateAccount : - Boolean add.User(new user(name, Password)
+
+WatchList : + addMedia()
+WatchList : + displayWatched()
+WatchList : + removeMedia()
+
+MainMenu : + Category
+MainMenu : + WatchList
+'---_new-----
+MainMenu : + search()
+MainMenu : + logOut()
+'-----------
+
+Media : + String Title
+Media : + int Release Year
+Media : + float Rating
+Media : + String Genre
+Media : + int timeWatched
+'---_new-----
+Media : + addMedia(String title, int releaseYear, float rating, String genre, boolean MediaType)
+Media : + moveToWatchList()
+'-----------
+
+TvShows : + int seasons
+TvShows : + int episodes
+
+MediaWindow : + playMedia()
+MediaWindow : + pauseMedia()
+MediaWindow : + rewindMedia()
+MediaWindow : + exitMedia()
+MediaWindow : + chooseSeAndEp()
+
+Category : + chooseGenre()
+Category : + chooseYear()
+
+DbIO : - Scanner scanner
+'---_new-----
+DbIO : + Arraylist<User> readUserData(String path)
+DbIO : + void saveUserData(ArrayList<User> users)
+DbIO : + String[] readLoginData(String Username, String password)
+'-----------
 
 TextUI : + String getInput(String msg)
 TextUI : - Scanner scanner
 TextUI : + void displayMessage(String msg)
 
-
-FileIO : - Scanner scanner
-FileIO : + ArrayList<Player> readPlayerData(String path)
-FileIO : + void savePlayerData(ArrayList<Player> players)
-FileIO : + String[] readBoardData(String path, int length)
-
-Field : - String label
-Field : - int ID
-Field : - int cost
-Field : - int income
-Field : - String option
-Field : + Field(ID, label, cost, income)
-Field : + String toString()
-Field : + String onLand(Player p)
-Field : + String processResponse(Player p)
-Field : # String onAccept(Player p)
-Field : # String onReject(Player p)
-
-
-Property : - int serieID
-Property : + String toString()
-Property : + String onLand(Player p)
-Property : # String onAccept()
-Property : # String onReject()
-
-Plot : + String onLand(Player p)
-Business : + String onLand(Player p)
-Business : # String onAccept()
-Business : # String onReject()
-
-ShippingLine : + String onLand(Player p)
-ShippingLine : # String onAccept()
-ShippingLine : # String onReject()
-
-Brewery : + String onLand(Player p)
-Brewery : # String onAccept()
-Brewery : # String onReject()
-
-Board : - Field[] fields
-Board : + Board(String [] fields, String [] cards])
-Board : - void createFields(String [] data)
-Board : + Field getField(int id)
-
-CardDeck : - String[] carddata
-CardDeck : - ArrayList<Card> cards
-CardDeck : + CardDeck
-CardDeck : + CardDeck(String[] carddata)
-CardDeck : + Card getNext()
-
-Card : -String message
-Card : -int income
-Card : -int cost
-Card : -String event
-Card : +Card(String message, int income, int cost, String event)
-
-Dice : +boolean isDouble
-Dice : +int rollDiceSum()
 @enduml

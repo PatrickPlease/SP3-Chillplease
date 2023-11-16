@@ -16,6 +16,7 @@ object UserHandler
 Startmenu *-- Hovedmenu
 Startmenu *-- User
 User *-- DataValidator
+User *-- WatchList
 Hovedmenu *-- WatchList
 Hovedmenu *-- Category
 User *-- UserHandler
