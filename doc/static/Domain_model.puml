@@ -1,0 +1,30 @@
+@startuml
+!pragma layout smetana
+'nyt: carddeck - card
+
+object Startmenu
+object Hovedmenu
+object User
+object DataValidator
+object WatchList
+object Category
+object Medie
+object TvShow
+object Movie
+object UserHandler
+
+Startmenu *-- Hovedmenu
+Startmenu *-- User
+User *-- DataValidator
+Hovedmenu *-- WatchList
+Hovedmenu *-- Category
+User *-- UserHandler
+Category *-- Medie
+Medie *-- TvShow
+Medie *-- Movie
+
+
+
+
+
+@enduml
