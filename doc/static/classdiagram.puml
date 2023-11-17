@@ -46,6 +46,7 @@ StreamingService : - login()
 StreamingService : + search()
 StreamingService : + logOut()
 StreamingService : + void setup()
+StreamingService : + moveToWatchList()
 '-----------
 
 User : - Private String Username
@@ -76,8 +77,7 @@ Media : + float getRating()
 Media : + String getGenre()
 Media : + int getTimeWatched()
 '---_new-----
-Media : + addMedia(String title, int releaseYear, float rating, String genre, boolean MediaType)
-Media : + moveToWatchList()
+Media : + Media(String title, int releaseYear, float rating, String genre, boolean MediaType)
 '-----------
 
 TvShows : + String title
@@ -106,6 +106,7 @@ DbIO : - Scanner scanner
 DbIO : + Arraylist<User> readUserData(String path)
 DbIO : + void saveUserData(ArrayList<User> users)
 DbIO : + String[] readLoginData(String Username, String password)
+DbIO : + String[] readMediadata(String title, int releaseYear, float rating, String genre)
 '-----------
 
 TextUI : + String getInput(String msg)
