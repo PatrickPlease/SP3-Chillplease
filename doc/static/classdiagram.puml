@@ -35,17 +35,21 @@ StreamingService *-- Category
 
 Main : + static void main(string [] args)
 
-StreamingService : + CreateAccount
-StreamingService : + Category
+
 StreamingService : + WatchList
 StreamingService : + DbIO io
 StreamingService : + TextUI ui
 StreamingService : + static ArrayList <User> users
+StreamingService : + static ArrayList <Movie> movies
+StreamingService : + static ArrayList <TvShow> TvShows
 '---_new-----
 StreamingService : - login()
-StreamingService : + search()
+StreamingService : + searchByName()
+StreamingService : + searchByCategory()
+StreamingService : + searchByYear()
 StreamingService : + logOut()
 StreamingService : + void setup()
+StreamingService : + void runStreamingService()
 StreamingService : + moveToWatchList()
 '-----------
 
@@ -64,7 +68,9 @@ DataValidator : + Boolean isPassWordValid()
 '-----------
 
 CreateAccount : - Boolean createUser(String name, String Password)
-CreateAccount : - Boolean add.User(new user(name, Password)
+CreateAccount : - Boolean addUser(new user(name, Password)
+CreateAccount : - Boolean removeUser(new user(name, Password)
+
 
 WatchList : + addMedia()
 WatchList : + displayWatched()
