@@ -4,17 +4,16 @@
 !pragma layout smetana
 
 class Main
-class StartMenu
 class User
 class DataValidator
 class CreateAccount
 class WatchList
-class MainMenu
-abstract Media
+interface Media
 class TvShows
 class Movies
 class MediaWindow
 class Category
+class StreamingService
 
 
 package "util"{
@@ -22,24 +21,31 @@ package "util"{
        class DbIO
 }
 
-Main *-- StartMenu
-StartMenu *-- User
+Main *-- StreamingService
+StreamingService *-- User
 User *-- DataValidator
 User *-- CreateAccount
-StartMenu *-- MainMenu
-MainMenu *-- WatchList
-MainMenu *-- Media
-Media *-- Movies
-Media *-- TvShows
-MainMenu *-- MediaWindow
-StartMenu *-- util
-MainMenu *-- Category
+User *-- WatchList
+StreamingService *-- Media
+Media <|-- Movies
+Media <|-- TvShows
+StreamingService *-- MediaWindow
+StreamingService *-- util
+StreamingService *-- Category
 
 Main : + static void main(string [] args)
 
-StartMenu : + CreateAccount
+StreamingService : + CreateAccount
+StreamingService : + Category
+StreamingService : + WatchList
+StreamingService : + DbIO io
+StreamingService : + TextUI ui
+StreamingService : + static ArrayList <User> users
 '---_new-----
-StartMenu : - login()
+StreamingService : - login()
+StreamingService : + search()
+StreamingService : + logOut()
+StreamingService : + void setup()
 '-----------
 
 User : - Private String Username
@@ -63,25 +69,28 @@ WatchList : + addMedia()
 WatchList : + displayWatched()
 WatchList : + removeMedia()
 
-MainMenu : + Category
-MainMenu : + WatchList
-'---_new-----
-MainMenu : + search()
-MainMenu : + logOut()
-'-----------
 
-Media : + String Title
-Media : + int Release Year
-Media : + float Rating
-Media : + String Genre
-Media : + int timeWatched
+Media : + String getTitle()
+Media : + int getReleaseYear()
+Media : + float getRating()
+Media : + String getGenre()
+Media : + int getTimeWatched()
 '---_new-----
 Media : + addMedia(String title, int releaseYear, float rating, String genre, boolean MediaType)
 Media : + moveToWatchList()
 '-----------
 
+TvShows : + String title
+TvShows : + int releaseYear
+TvShows : + float rating
+TvShows : + String genre
 TvShows : + int seasons
 TvShows : + int episodes
+
+Movies : + String title
+Movies : + int releaseYear
+Movies : + float rating
+Movies : + String genre
 
 MediaWindow : + playMedia()
 MediaWindow : + pauseMedia()
