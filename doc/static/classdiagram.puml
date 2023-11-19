@@ -49,15 +49,14 @@ StreamingService : + void setup()
 StreamingService : + moveToWatchList()
 '-----------
 
-User : - Private String Username
-User : - Private String Password
+User : - String username
+User : - String password
 User : - static ArrayList <User> users
 '---_new-----
 User : + User(String Username, String Password)
 
 '-----------
-DataValidator : - String Username
-DataValidator : - String Password
+
 '---_new-----
 DataValidator : + Boolean isUsernameValid()
 DataValidator : + Boolean isPassWordValid()
